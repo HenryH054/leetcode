@@ -4,8 +4,6 @@ Merge nums1 and nums2 into a single array sorted in non-decreasing order.
 
 The final sorted array should not be returned by the function, but instead be stored inside the array nums1. To accommodate this, nums1 has a length of m + n, where the first m elements denote the elements that should be merged, and the last n elements are set to 0 and should be ignored. nums2 has a length of n.
 
- 
-
 Example 1:
 
 Input: nums1 = [1,2,3,0,0,0], m = 3, nums2 = [2,5,6], n = 3
@@ -37,3 +35,54 @@ nums2.length == n
  
 
 Follow up: Can you come up with an algorithm that runs in O(m + n) time?"""
+
+class Solution:
+    def merge(nums1: list[int], m: int, nums2: list[int], n: int) -> None:
+        """
+        Do not return anything, modify nums1 in-place instead.
+        """
+        #purge any tailing zeroes so that no "zero checking" has to be done
+        for i in range(m, m+n):
+            nums1.pop()
+        #incrementally iterate through both list and adds numbers into their sorted position
+        x = 0
+        i = 0
+        while i < n:
+            if x >= len(nums1):
+                nums1.append(nums2[i])
+                i += 1
+            elif (nums2[i] <= nums1[x]):
+                nums1.insert(x, nums2[i])
+                i += 1
+            else:
+                x += 1
+                
+
+if __name__ == "__main__":
+    nums1 = [1,2,3,0,0,0]
+    m = 3
+    nums2 = [2,5,6]
+    n = 3
+    Solution.merge(nums1, m, nums2, n)
+    print(nums1)
+
+    nums1 = [1]
+    m = 1
+    nums2 = []
+    n = 0
+    Solution.merge(nums1, m, nums2, n)
+    print(nums1)
+    
+    nums1 = [0]
+    m = 0
+    nums2 = [1]
+    n = 1
+    Solution.merge(nums1, m, nums2, n)
+    print(nums1)
+
+    nums1 = [-1,0,0,3,3,3,0,0,0]
+    m = 6
+    nums2 = [1,2,2]
+    n = 3
+    Solution.merge(nums1, m, nums2, n)
+    print(nums1)
