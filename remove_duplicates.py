@@ -44,7 +44,7 @@ nums is sorted in non-decreasing order.
 
 
 class Solution:
-    def removeDuplicates(nums: list[int]) -> int:
+    def remove_duplicates(nums: list[int]) -> int:
         k = 1
         last = nums[0]
         for j in range(1, len(nums)):
